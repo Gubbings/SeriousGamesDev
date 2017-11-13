@@ -1361,7 +1361,7 @@ GameObject:
   - component: {fileID: 722039734}
   - component: {fileID: 722039733}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: ProblemGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1375,10 +1375,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 722039732}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5f0100b1a3bf244ea7fba155c6188b6, type: 3}
+  m_Script: {fileID: 11500000, guid: 81eb949d3b7cd014bb8f0d5c34b15fbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: 0
 --- !u!4 &722039734
 Transform:
   m_ObjectHideFlags: 0
