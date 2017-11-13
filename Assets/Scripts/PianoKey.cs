@@ -21,9 +21,14 @@ public class PianoKey : MonoBehaviour {
         B        
     };
 
+    /*
+    [HideInInspector]
+    public static notes globalNote;
+    */
+
     public notes note;
     public int octaveShfit = 0;
-
+    
 	// Use this for initialization
 	void Start () {
         audioGenerator = GameObject.Find("SoundGenerator").GetComponent<AudioSource>();
