@@ -53,30 +53,7 @@ public class PianoKey : MonoBehaviour {
 
         for (int i = (int)notes.C; i < note; i++) {
             offset += 1f;
-        }
-
-        /*
-        if (note < (int)notes.C) {
-            for (int i = (int)notes.C; i > note; i--) {
-                if (i == (int)notes.C) {
-                    offset -= 1f;
-                }
-                else {
-                    offset -= 2f;
-                }
-            }
-        }
-        else {
-            for (int i = (int)notes.C; i < note; i++) {
-                if (i == (int)notes.F) {
-                    offset += 1f;
-                }
-                else {
-                    offset += 2f;
-                }
-            }
-        }
-        */
+        }       
         
         if(octaveShift != 0) {
             offset += octaveShift * 12;

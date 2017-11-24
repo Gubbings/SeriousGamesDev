@@ -35,8 +35,16 @@ public class ProblemGenerator : MonoBehaviour {
         new List<int>() { 5, 7 }
     };
 
+    public GameObject sharpPrefab;
+
+    public GameObject[] sharps;
+
+
+    AudioSource audioSource;
+
     // Use this for initialization
     void Start () {
+        audioSource = GetComponent<AudioSource>();
         GenerateProblem();
 	}
 
@@ -59,10 +67,18 @@ public class ProblemGenerator : MonoBehaviour {
     //C D E F G A B
 
     void GenerateProblem() {
+
+        for (int i = 0; i < 5; i++) {
+            sharps[i].SetActive(false);
+        }
+
+
         keys key = (keys)Random.Range(0, 6);
         List<PianoKey.notes> keySignature = keySignatures[(int)key];
 
-
+        for (int i = 0; i < keySignature.Count; i++) {
+            sharps[i].SetActive(true);
+        }
 
         List<PianoKey.notes> basicNotes = new List<PianoKey.notes>();
         for (int i = 0; i < 12; i++) {
@@ -141,5 +157,52 @@ public class ProblemGenerator : MonoBehaviour {
                 }
             }
         }
+
+
+
+        //generate the actual problem of 8 notes
+        PianoKey.notes[] problemNotes = new PianoKey.notes[8];
+
+        problemNotes[0] = tonicNotes[Random.Range(0, 2)];
+        problemNotes[1] = predominantNotes[Random.Range(0, predominantNotes.Count - 1)];
+        problemNotes[2] = dominantNotes[Random.Range(0, dominantNotes.Count - 1)];
+        problemNotes[3] = tonicNotes[Random.Range(0, tonicNotes.Count - 1)];
+
+        problemNotes[4] = tonicNotes[Random.Range(0, tonicNotes.Count - 1)];
+        problemNotes[5] = predominantNotes[Random.Range(0, predominantNotes.Count - 1)];
+        problemNotes[6] = dominantNotes[Random.Range(0, dominantNotes.Count - 1)];
+        problemNotes[7] = tonicNotes[Random.Range(0, 2)];
+
+        /*
+        problemNotes = new PianoKey.notes[3];
+        problemNotes[0] = PianoKey.notes.E;
+        problemNotes[1] = PianoKey.notes.A;
+        problemNotes[2] = PianoKey.notes.B;
+        */
+
+        IEnumerator routine = playProblem(problemNotes);
+        StartCoroutine(routine);
+    }
+
+    public IEnumerator playProblem(PianoKey.notes[] problem) {
+
+        for (int i = 0; i < problem.Length; i++) {
+            audioSource.pitch = Mathf.Pow(2, (calcPitch((int)problem[i])) / 12.0f);
+            audioSource.Play();
+            yield return new WaitForSeconds(1);
+        }        
+    }
+
+    private float calcPitch(int note) {       
+
+        float offset = 0;
+
+        for (int i = (int)PianoKey.notes.C; i < note; i++) {
+            offset += 1f;
+        }
+
+        offset /= 12f;
+
+        return Mathf.Pow(2, offset);
     }
 }
