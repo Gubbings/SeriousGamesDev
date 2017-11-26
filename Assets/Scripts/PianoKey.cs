@@ -40,15 +40,15 @@ public class PianoKey : MonoBehaviour {
 	}
 
     private void OnMouseDown() {
+        if (audioGenerator == null) {
+            return;
+        }
+
         audioGenerator.pitch = calcPitch((int)note, octaveShfit);
         audioGenerator.Play();
     }
 
-    private float calcPitch(int note, int octaveShift) {
-        if (audioGenerator == null) {
-            return 0;
-        }
-
+    public static float calcPitch(int note, int octaveShift) {
         float offset = 0;
 
         for (int i = (int)notes.C; i < note; i++) {
