@@ -21,13 +21,8 @@ public class PianoKey : MonoBehaviour {
         B        
     };
 
-    /*
-    [HideInInspector]
-    public static notes globalNote;
-    */
-
     public notes note;
-    public int octaveShfit = 0;
+    public int octaveShift = 0;
     
 	// Use this for initialization
 	void Start () {
@@ -44,7 +39,43 @@ public class PianoKey : MonoBehaviour {
             return;
         }
 
-        audioGenerator.pitch = calcPitch((int)note, octaveShfit);
+        TutorialProblem tp = GameObject.Find("Problem").GetComponent<TutorialProblem>();
+        ConcreteProblem cp = GameObject.Find("Problem").GetComponent<ConcreteProblem>();
+        ProblemGenerator pg = GameObject.Find("Problem").GetComponent<ProblemGenerator>();
+
+        if (tp != null) {
+            if (tp.currentlyPlaying) {
+                return;
+            }
+            
+            GameObject.Find("TutorialManager").GetComponent<TutorialManager>().UpdateTutorialText();
+            tp.submitAnswer(note, octaveShift);
+        }
+        else if (cp != null) {
+
+            if (cp.currentlyPlaying) {
+                return;
+            }
+
+            if (cp.difficulty == ProblemGenerator.difficulty.TUTORIAL) {
+                GameObject.Find("TutorialManager").GetComponent<TutorialManager>().UpdateTutorialText();
+            }
+
+            cp.submitAnswer(note, octaveShift);
+        }
+        else if(pg != null){
+            if (cp.currentlyPlaying) {
+                return;
+            }
+
+            if (cp.difficulty == ProblemGenerator.difficulty.TUTORIAL) {
+                GameObject.Find("TutorialManager").GetComponent<TutorialManager>().UpdateTutorialText();
+            }
+
+            cp.submitAnswer(note, octaveShift);
+        }
+
+        audioGenerator.pitch = calcPitch((int)note, octaveShift);
         audioGenerator.Play();
     }
 

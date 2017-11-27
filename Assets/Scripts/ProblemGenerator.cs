@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class ProblemGenerator : MonoBehaviour {
 
+    public enum difficulty {
+        TUTORIAL,
+        EASY,
+        NORMAL,
+        HARD      
+    };
+
     public enum keys {        
         C_MAJOR,
         D_MAJOR,
@@ -13,7 +20,9 @@ public class ProblemGenerator : MonoBehaviour {
         A_MAJOR,
         B_MAJOR
     };
-   
+
+    public static string[] keyNames = { "C Major", "D Major", "E Major", "F Major", "G Major", "A Major", "B Major" };
+
     public List<PianoKey.notes>[] keySignatures = { 
         new List<PianoKey.notes>() {},
         new List<PianoKey.notes>() { PianoKey.notes.Fsharp, PianoKey.notes.Csharp},
@@ -52,19 +61,6 @@ public class ProblemGenerator : MonoBehaviour {
 	void Update () {
 		
 	}
-
-    //key = C
-    /*
-        1 = C
-        2 = D
-        3 = E
-
-    key = D
-        1 = D
-        2 = E
-    */
-    
-    //C D E F G A B
 
     void GenerateProblem() {
 
@@ -180,8 +176,8 @@ public class ProblemGenerator : MonoBehaviour {
         problemNotes[2] = PianoKey.notes.B;
         */
 
-        IEnumerator routine = playProblem(problemNotes);
-        StartCoroutine(routine);
+        //IEnumerator routine = playProblem(problemNotes);
+        //StartCoroutine(routine);
     }
 
     public IEnumerator playProblem(PianoKey.notes[] problem) {
