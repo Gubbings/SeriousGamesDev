@@ -177,24 +177,5 @@ public class TutorialManager : MonoBehaviour {
                 SceneManager.LoadScene("PracticeMode");
                 break;
         }
-    }
-
-    public void ToggleSignaturePanel() {
-        if (signaturePanel.activeSelf) {
-            signaturePanel.SetActive(false);
-        }
-        else {
-            signaturePanel.SetActive(true);
-        }
-    }
-
-
-    public void ToggleChordTypePanel() {
-        if (chordTypePanel.activeSelf) {
-            chordTypePanel.SetActive(false);
-        }
-        else {
-            chordTypePanel.SetActive(true);
-        }
-    }
+    }    
 }
