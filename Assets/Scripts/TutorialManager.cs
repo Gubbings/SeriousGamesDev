@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TutorialManager : MonoBehaviour {
 
@@ -12,12 +13,22 @@ public class TutorialManager : MonoBehaviour {
     public GameObject Tut1_Panel;
     public GameObject Tut2_Panel;
     public GameObject staff;
+    public GameObject piano;
 
     public GameObject signatureButton;
     public GameObject signaturePanel;
 
     public GameObject chordTypeButton;
     public GameObject chordTypePanel;
+
+    public GameObject problemObject;
+    public GameObject replayObject;
+
+    public GameObject correctPianoKey;
+    public Material correctKeyMat;
+
+    public GameObject revealKeyButton;
+    public GameObject replayFirstNoteButton;
 
     private int tutorialStage = 0;
     
@@ -34,11 +45,19 @@ public class TutorialManager : MonoBehaviour {
 
     public void UpdateTutorialText() {
 
+        if (problemObject.GetComponent<ConcreteProblem>().currentlyPlaying) {
+            //return;
+        }
+
+        if (problemObject.GetComponent<TutorialProblem>().currentlyPlaying) {
+            //return;
+        }
+
         tutorialStage++;
 
         switch (tutorialStage) {
             case 1:
-                textObject1.text = "Classical harmony has many aspects but we will focus on cord progressions. " +
+                textObject1.text = "Classical melodies are based on classical harmony which has many aspects but we will focus on cord progressions. " +
                     "We can label chords of a key numerically starting from the base note of the key. For example in C major chord 1 is C and chord 2 is D.";
                 break;
 
@@ -52,7 +71,7 @@ public class TutorialManager : MonoBehaviour {
                 staff.SetActive(true);
                 Tut2_Panel.SetActive(true);
 
-                textObject2.text = "The key signature will be shown on the left of the staff next to the treble cleff. We will use examples with at most 5 sharps shown here.\n" +
+                textObject2.text = "The key signature will be shown on the left of the staff next to the treble clef. We will use examples with at most 5 sharps shown here.\n" +
                     "Lets take a look at the key signatures for the keys that we will focus on.";
                 break;
 
@@ -95,16 +114,70 @@ public class TutorialManager : MonoBehaviour {
                     "You can click the arrow on the right to open the chord classification list.";
                 break;
 
-            case 9:                
-                textObject2.text = "Now that you have everything you need I will give you a sequence of 8 notes. Like this.";
+            case 9:
+
+                //problemObject.GetComponent<ConcreteProblem>().setupTutorialProbblem(-1);
+                problemObject.GetComponent<TutorialProblem>().setupTutorialProbblem(-1);
+
+                textObject2.text = "Now that you have everything you need I will give you a sequence of 8 notes representing a pair of chord progresions. This example is in the key of C Major.";
                 break;
 
             case 10:
-                textObject2.text = "But some of the notes will be missing. You need to listen carefully to decide what those missing notes are. Then play them on this piano.";
+
+                //problemObject.GetComponent<ConcreteProblem>().setupTutorialProbblem(3);
+                problemObject.GetComponent<TutorialProblem>().setupTutorialProbblem(3);
+
+                textObject2.text = "But some of the notes will be missing. You need to listen carefully to decide what those missing notes are. Missing note positions are marked with a blue bar.";
+                break;
+
+            case 11:
+
+                //problemObject.GetComponent<ConcreteProblem>().playProblem();
+                problemObject.GetComponent<TutorialProblem>().playProblem();
+                replayObject.SetActive(true);
+
+                textObject2.text = "Now you will use this piano to play the correct note. If you need to hear the sequence again click on the replay button to the right of the staff. " +
+                    "Dont worry if you make a mistake you will get three chances before I reveal the answer.";
+
+                Tut2_Panel.transform.Find("Button").transform.Find("Text").GetComponent<Text>().text = "Ok Got It";
+               
+                break;
+
+            case 12:
+
+                piano.SetActive(true);
+                Tut2_Panel.SetActive(false);
+
+                correctPianoKey.GetComponent<Renderer>().material = correctKeyMat;
+
+                break;
+
+            case 13:
+
+                piano.SetActive(false);
+                Tut2_Panel.SetActive(true);
+
+                revealKeyButton.SetActive(true);
+                replayFirstNoteButton.SetActive(true);
+
+                textObject2.text = "Great you get the idea. If you get stuck I'll also give you some help. You can reveal the key or replay the first missing note.";
+                Tut2_Panel.transform.Find("Button").transform.Find("Text").GetComponent<Text>().text = "Continue";
+
+                break;
+
+            case 14:
+                textObject2.text = "Alright thats everything. Now you can start practicing where you can earn points depending on your performance. " +
+                    "Incorrect answers will reduce your points so make sure you are confident with your answer.";
+                Tut2_Panel.transform.Find("Button").transform.Find("Text").GetComponent<Text>().text = "Take Me To Practice";
+
+                break;
+
+            case 15:
+                PlayerPrefs.SetInt("CompletedTutorial", 1);
+                SceneManager.LoadScene("PracticeMode");
                 break;
         }
     }
-
 
     public void ToggleSignaturePanel() {
         if (signaturePanel.activeSelf) {
