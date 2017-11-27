@@ -8,10 +8,10 @@ public class ProblemGenerator : MonoBehaviour {
         TUTORIAL,
         EASY,
         NORMAL,
-        HARD      
+        HARD
     };
 
-    public enum keys {        
+    public enum keys {
         C_MAJOR,
         D_MAJOR,
         E_MAJOR,
@@ -23,7 +23,7 @@ public class ProblemGenerator : MonoBehaviour {
 
     public static string[] keyNames = { "C Major", "D Major", "E Major", "F Major", "G Major", "A Major", "B Major" };
 
-    public List<PianoKey.notes>[] keySignatures = { 
+    public List<PianoKey.notes>[] keySignatures = {
         new List<PianoKey.notes>() {},
         new List<PianoKey.notes>() { PianoKey.notes.Fsharp, PianoKey.notes.Csharp},
         new List<PianoKey.notes>() { PianoKey.notes.Fsharp, PianoKey.notes.Csharp, PianoKey.notes.Gsharp, PianoKey.notes.Dsharp},
@@ -44,37 +44,25 @@ public class ProblemGenerator : MonoBehaviour {
         new List<int>() { 5, 7 }
     };
 
-    public GameObject sharpPrefab;
-
-    public GameObject[] sharps;
-
-
-    AudioSource audioSource;
+    private ConcreteProblem cp;
 
     // Use this for initialization
-    void Start () {
-        audioSource = GetComponent<AudioSource>();
+    void Start() {
+        cp = GetComponent<ConcreteProblem>();
         GenerateProblem();
-	}
+    }
 
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    // Update is called once per frame
+    void Update() {
 
-    void GenerateProblem() {
+    }
 
-        for (int i = 0; i < 5; i++) {
-            sharps[i].SetActive(false);
-        }
-
+    public void GenerateProblem() {
+        cp.speechPanel.SetActive(false);
+        cp.piano.SetActive(true);
 
         keys key = (keys)Random.Range(0, 6);
         List<PianoKey.notes> keySignature = keySignatures[(int)key];
-
-        for (int i = 0; i < keySignature.Count; i++) {
-            sharps[i].SetActive(true);
-        }
 
         List<PianoKey.notes> basicNotes = new List<PianoKey.notes>();
         for (int i = 0; i < 12; i++) {
@@ -95,13 +83,13 @@ public class ProblemGenerator : MonoBehaviour {
                currNote == PianoKey.notes.D && keySignature.Contains(PianoKey.notes.Dsharp) ||
                currNote == PianoKey.notes.F && keySignature.Contains(PianoKey.notes.Fsharp) ||
                currNote == PianoKey.notes.A && keySignature.Contains(PianoKey.notes.Asharp) ||
-               currNote == PianoKey.notes.G && keySignature.Contains(PianoKey.notes.Gsharp)){
+               currNote == PianoKey.notes.G && keySignature.Contains(PianoKey.notes.Gsharp)) {
 
                 continue;
             }
-            
 
-            basicNotes.Add(currNote);           
+
+            basicNotes.Add(currNote);
         }
 
 
@@ -116,7 +104,7 @@ public class ProblemGenerator : MonoBehaviour {
 
             for (int j = 0; j < 3; j++) {
 
-                if(!tonicNotes.Contains(basicNotes[(cordStartingNote + j * 2) % basicNotes.Count])) { 
+                if (!tonicNotes.Contains(basicNotes[(cordStartingNote + j * 2) % basicNotes.Count])) {
                     tonicNotes.Add(basicNotes[(cordStartingNote + j * 2) % basicNotes.Count]);
                 }
             }
@@ -157,48 +145,75 @@ public class ProblemGenerator : MonoBehaviour {
 
 
         //generate the actual problem of 8 notes
-        PianoKey.notes[] problemNotes = new PianoKey.notes[8];
+        ConcreteProblem.ProblemNote[] problemNotes = new ConcreteProblem.ProblemNote[8];
 
-        problemNotes[0] = tonicNotes[Random.Range(0, 2)];
-        problemNotes[1] = predominantNotes[Random.Range(0, predominantNotes.Count - 1)];
-        problemNotes[2] = dominantNotes[Random.Range(0, dominantNotes.Count - 1)];
-        problemNotes[3] = tonicNotes[Random.Range(0, tonicNotes.Count - 1)];
+        problemNotes[0].note = tonicNotes[Random.Range(0, 2)];
+        problemNotes[1].note = predominantNotes[Random.Range(0, predominantNotes.Count - 1)];
+        problemNotes[2].note = dominantNotes[Random.Range(0, dominantNotes.Count - 1)];
+        problemNotes[3].note = tonicNotes[Random.Range(0, tonicNotes.Count - 1)];
 
-        problemNotes[4] = tonicNotes[Random.Range(0, tonicNotes.Count - 1)];
-        problemNotes[5] = predominantNotes[Random.Range(0, predominantNotes.Count - 1)];
-        problemNotes[6] = dominantNotes[Random.Range(0, dominantNotes.Count - 1)];
-        problemNotes[7] = tonicNotes[Random.Range(0, 2)];
+        problemNotes[4].note = tonicNotes[Random.Range(0, tonicNotes.Count - 1)];
+        problemNotes[5].note = predominantNotes[Random.Range(0, predominantNotes.Count - 1)];
+        problemNotes[6].note = dominantNotes[Random.Range(0, dominantNotes.Count - 1)];
+        problemNotes[7].note = tonicNotes[Random.Range(0, 2)];
 
-        /*
-        problemNotes = new PianoKey.notes[3];
-        problemNotes[0] = PianoKey.notes.E;
-        problemNotes[1] = PianoKey.notes.A;
-        problemNotes[2] = PianoKey.notes.B;
-        */
-
-        //IEnumerator routine = playProblem(problemNotes);
-        //StartCoroutine(routine);
-    }
-
-    public IEnumerator playProblem(PianoKey.notes[] problem) {
-
-        for (int i = 0; i < problem.Length; i++) {
-            audioSource.pitch = Mathf.Pow(2, (calcPitch((int)problem[i])) / 12.0f);
-            audioSource.Play();
-            yield return new WaitForSeconds(1);
-        }        
-    }
-
-    private float calcPitch(int note) {       
-
-        float offset = 0;
-
-        for (int i = (int)PianoKey.notes.C; i < note; i++) {
-            offset += 1f;
+        for (int i = 0; i < problemNotes.Length; i++) {
+            problemNotes[i].octaveShift = 0;
         }
 
-        offset /= 12f;
 
-        return Mathf.Pow(2, offset);
+        for (int i = 0; i < problemNotes.Length; i++) {
+            if (problemNotes[i].note == PianoKey.notes.A || problemNotes[i].note == PianoKey.notes.Asharp || problemNotes[i].note == PianoKey.notes.B) {
+                problemNotes[i].octaveShift = -1;
+            }
+        }
+        
+        cp.key = key;
+        cp.problemSequence = problemNotes;
+
+        cp.missingNoteIndexes = new List<int>();
+        switch (cp.difficulty) {
+
+            case difficulty.EASY:
+
+                int missingNoteIndex = Random.Range(1, 7);
+                cp.missingNoteIndexes.Add(missingNoteIndex);
+
+                break;
+
+            case difficulty.NORMAL:
+
+                int firstMissingNoteIndex = Random.Range(1, 5);
+
+                for (int i = 0; i < 3; i++) {
+                    cp.missingNoteIndexes.Add(firstMissingNoteIndex + i);
+                }
+
+                break;
+
+            case difficulty.HARD:
+
+                for (int i = 1; i < 8; i++) {
+                    cp.missingNoteIndexes.Add(i);
+                }
+
+                break;
+        }
+        
+        cp.setupProbblemVisuals();
+        cp.playProblem();
+    }
+
+    public void submitAnswer(PianoKey.notes note, int octaveShift) {        
+        if (cp.submitAnswer(note, octaveShift)) {
+            cp.piano.SetActive(false);
+            cp.speechPanel.SetActive(true);            
+            cp.SpeechText.text = "Well done Maestro! Continue to play again.";
+        }
+        else if (cp.questionAttempts >= 3) {
+            cp.piano.SetActive(false);
+            cp.speechPanel.SetActive(true);
+            cp.SpeechText.text = "This was a tough one. Take a look at the answer before trying a new question.";            
+        }       
     }
 }
