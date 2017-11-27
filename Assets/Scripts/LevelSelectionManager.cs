@@ -44,10 +44,24 @@ public class LevelSelectionManager : MonoBehaviour {
             }
         }
 
-        SceneManager.LoadScene("EndlessMode");
+        SceneManager.LoadScene("EndlessDifficultySelection");
     }
 
     public void LoadPracticeLevel(int level) {
         SceneManager.LoadScene("PracticeLevel" + level);
+    }
+
+    public void LoadEndlessMode(int difficulty) {
+        switch (difficulty) {
+            case 0:
+                SceneManager.LoadScene("EndlessModeEasy");
+                break;
+            case 1:
+                SceneManager.LoadScene("EndlessModeNormal");
+                break;
+            case 2:
+                SceneManager.LoadScene("EndlessModeHard");
+                break;
+        }
     }
 }

@@ -50,26 +50,17 @@ public class PianoKey : MonoBehaviour {
             
             GameObject.Find("TutorialManager").GetComponent<TutorialManager>().UpdateTutorialText();
             tp.submitAnswer(note, octaveShift);
+        }        
+        else if(pg != null){
+            if (cp != null && cp.currentlyPlaying) {
+                return;
+            }
+
+            pg.submitAnswer(note, octaveShift);
         }
         else if (cp != null) {
-
             if (cp.currentlyPlaying) {
                 return;
-            }
-
-            if (cp.difficulty == ProblemGenerator.difficulty.TUTORIAL) {
-                GameObject.Find("TutorialManager").GetComponent<TutorialManager>().UpdateTutorialText();
-            }
-
-            cp.submitAnswer(note, octaveShift);
-        }
-        else if(pg != null){
-            if (cp.currentlyPlaying) {
-                return;
-            }
-
-            if (cp.difficulty == ProblemGenerator.difficulty.TUTORIAL) {
-                GameObject.Find("TutorialManager").GetComponent<TutorialManager>().UpdateTutorialText();
             }
 
             cp.submitAnswer(note, octaveShift);

@@ -29,6 +29,7 @@ public class ConcreteProblem : MonoBehaviour {
     public Material defaultMat;
     public Material correctMat;
     public Material incorrectMat;
+    public Material barMat;
 
     public GameObject revealKeyButton;
     public GameObject replayFirstNoteButton;
@@ -46,11 +47,13 @@ public class ConcreteProblem : MonoBehaviour {
     [HideInInspector]
     public bool currentlyPlaying = false;
 
-    private AudioSource audioSource;
+    [HideInInspector]
+    public int questionAttempts = 1;
 
-    private bool revealedKey = false;
-    private int questionAttempts = 0;
+    private AudioSource audioSource;
+    private bool revealedKey = false;    
     private int score;
+    private bool mistake = false;
 
     // Use this for initialization
     void Start() {
@@ -67,7 +70,7 @@ public class ConcreteProblem : MonoBehaviour {
         currentlyPlaying = false;
         audioSource = this.GetComponent<AudioSource>();
 
-        if (difficulty != ProblemGenerator.difficulty.TUTORIAL) {
+        if (difficulty != ProblemGenerator.difficulty.TUTORIAL && problemSequence.Length != 0) {
             setupProbblemVisuals();
             playProblem();
         }
@@ -92,6 +95,12 @@ public class ConcreteProblem : MonoBehaviour {
 
     public void setupProbblemVisuals() {
 
+        mistake = false;
+
+        if (missingNoteIndexes.Count != 0) {
+            currentMissingNote = missingNoteIndexes[0];
+        }
+
         //hide all sharps/flats
         for (int i = 0; i < keySignatureObject.transform.childCount; i++) {
             keySignatureObject.transform.GetChild(i).gameObject.SetActive(false);
@@ -103,6 +112,14 @@ public class ConcreteProblem : MonoBehaviour {
         //hide all notes
         for (int i = 0; i < problemSequence.Length; i++) {
             for (int j = 0; j < noteObjectSets[i].transform.childCount; j++) {
+
+                if (noteObjectSets[i].transform.GetChild(j).name == "MissingNoteBar") {
+                    noteObjectSets[i].transform.GetChild(j).GetComponentInChildren<Renderer>().material = barMat;
+                }
+                else { 
+                    noteObjectSets[i].transform.GetChild(j).GetComponentInChildren<Renderer>().material = defaultMat;                    
+                }
+
                 noteObjectSets[i].transform.GetChild(j).gameObject.SetActive(false);
             }
         }
@@ -119,6 +136,7 @@ public class ConcreteProblem : MonoBehaviour {
         }
     }
 
+    /*
     public void setupTutorialProbblem(int hiddenNoteIndex) {
 
         currentMissingNote = hiddenNoteIndex;
@@ -148,6 +166,7 @@ public class ConcreteProblem : MonoBehaviour {
             showNote(i, problemSequence[i].note, problemSequence[i].octaveShift, defaultMat);           
         }
     }
+    */
 
     public IEnumerator playProblem(ProblemNote[] problem) {
 
@@ -279,9 +298,11 @@ public class ConcreteProblem : MonoBehaviour {
     }
 
 
-    public void submitAnswer(PianoKey.notes note, int octaveShift) {
-
-        questionAttempts++;
+    public bool submitAnswer(PianoKey.notes note, int octaveShift) {
+        
+        if (currentMissingNote > missingNoteIndexes[missingNoteIndexes.Count - 1]) {
+            currentMissingNote = missingNoteIndexes[0];            
+        }
 
         for (int i = 0; i < noteObjectSets[currentMissingNote].transform.childCount; i++) {
             noteObjectSets[currentMissingNote].transform.GetChild(i).GetComponentInChildren<Renderer>().material = defaultMat;
@@ -292,26 +313,60 @@ public class ConcreteProblem : MonoBehaviour {
             showNote(currentMissingNote, note, octaveShift, correctMat);
 
 
-            score += pointsToAward;
-            scoreText.text = "Score: " + score; 
+            if (currentMissingNote == missingNoteIndexes[missingNoteIndexes.Count - 1] && !mistake) {
+                score += pointsToAward;
+                scoreText.text = "Score: " + score;
 
-            congradulate();
-        }
-        else {
-            showNote(currentMissingNote, note, octaveShift, incorrectMat);
+                piano.SetActive(false);
+                congradulate();
 
-            pointsToAward -= 2;
-
-            if (questionAttempts == 3) {
-                showAnswer();
+                return true;
+            }
+            else if (currentMissingNote == missingNoteIndexes[missingNoteIndexes.Count - 1]) {
+                questionAttempts++;
             }
         }
+        else {
+            mistake = true;
+            showNote(currentMissingNote, note, octaveShift, incorrectMat);            
+
+            if (currentMissingNote == missingNoteIndexes[missingNoteIndexes.Count - 1]) {
+                questionAttempts++;
+                pointsToAward -= 2;
+
+                IEnumerator enumerator = showIncorrect();
+                StartCoroutine(enumerator);                
+            }
+
+            
+        }
+
+        if (questionAttempts >= 3) {
+            piano.SetActive(false);
+            showAnswer();
+        }
+
+        currentMissingNote++;
+        return false;
     }
 
-    public void congradulate() {
+    public IEnumerator showIncorrect() {
+        yield return new WaitForSeconds(1);
+        setupProbblemVisuals();
+    }
+
+    public void congradulate() { 
         piano.SetActive(false);
         speechPanel.SetActive(true);
-        SpeechText.text = "Well done Maestro! Onto the next level.";
+
+        string sceneName = SceneManager.GetActiveScene().name;
+
+        if (sceneName == "PracticeLevel9") {
+            SpeechText.text = "You have completed all of the practice levels! You can play more levels in endless mode.";
+        }
+        else {
+            SpeechText.text = "Well done Maestro! Onto the next level.";
+        }        
     }
 
     public void showAnswer() {
@@ -320,12 +375,19 @@ public class ConcreteProblem : MonoBehaviour {
 
         piano.SetActive(false);
         speechPanel.SetActive(true);
-        SpeechText.text = "Good try. You can see the answer above. Try again on the next level.";
+        SpeechText.text = "Good try. You can see the answer above. Try again on the next level or in endless mode.";
     }
 
     public void nextLevel() {
         string sceneName = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene("PracticeLevel" + (int.Parse(sceneName.Substring(sceneName.Length - 1, 1)) + 1));
+
+
+        if (sceneName == "PracticeLevel9") {
+            SceneManager.LoadScene("LevelSelectionScene");
+        }
+        else {
+            SceneManager.LoadScene("PracticeLevel" + (int.Parse(sceneName.Substring(sceneName.Length - 1, 1)) + 1));
+        }        
     }
 
     public void revealKey() {
@@ -350,5 +412,29 @@ public class ConcreteProblem : MonoBehaviour {
 
         audioSource.pitch = PianoKey.calcPitch((int)problemSequence[missingNoteIndexes[0]].note, problemSequence[missingNoteIndexes[0]].octaveShift);
         audioSource.Play();
-    }    
+    }
+
+    public void ToggleSignaturePanel() {
+
+        GameObject signaturePanel = GameObject.Find("Canvas").transform.Find("SignaturePanel").gameObject;
+
+        if (signaturePanel.activeSelf) {
+            signaturePanel.SetActive(false);
+        }
+        else {
+            signaturePanel.SetActive(true);
+        }
+    }
+
+
+    public void ToggleChordTypePanel() {
+        GameObject chordTypePanel = GameObject.Find("Canvas").transform.Find("ChordTypePanel").gameObject;
+
+        if (chordTypePanel.activeSelf) {
+            chordTypePanel.SetActive(false);
+        }
+        else {
+            chordTypePanel.SetActive(true);
+        }
+    }
 }

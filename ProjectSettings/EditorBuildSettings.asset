@@ -18,8 +18,17 @@ EditorBuildSettings:
     path: Assets/Scenes/PracticeMode.unity
     guid: 98cd68404f6d33b48addb3664e3518ea
   - enabled: 1
-    path: Assets/Scenes/EndlessMode.unity
+    path: Assets/Scenes/EndlessDifficultySelection.unity
+    guid: 12aa70bcc2c86a14aae0d94a0fb06d6c
+  - enabled: 1
+    path: Assets/Scenes/EndlessMode/EndlessModeEasy.unity
     guid: 904d1a9b6a7d68b45a62bf44f8e8f9d8
+  - enabled: 1
+    path: Assets/Scenes/EndlessMode/EndlessModeNormal.unity
+    guid: 81dd3726b54b97c498e9887bc2e2d09a
+  - enabled: 1
+    path: Assets/Scenes/EndlessMode/EndlessModeHard.unity
+    guid: 4cb1a786b4f70374e8b116d0ed09b20c
   - enabled: 1
     path: Assets/Scenes/Practice Levels/PracticeLevel1.unity
     guid: 8ed265ff72ed7254eb1a97d965ef2fc7

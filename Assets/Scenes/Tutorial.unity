@@ -183,7 +183,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2106242699}
+      - m_Target: {fileID: 160060490}
         m_MethodName: ToggleSignaturePanel
         m_Mode: 1
         m_Arguments:
@@ -1149,6 +1149,7 @@ MonoBehaviour:
   defaultMat: {fileID: 2100000, guid: 1096e5ff944fd5242bd0412c9d6ff0f2, type: 2}
   correctMat: {fileID: 2100000, guid: 87f9d0e5f99c78746952a875e2ec29c3, type: 2}
   incorrectMat: {fileID: 2100000, guid: ab80a166f4194f341b9c8aaf7a4260f4, type: 2}
+  barMat: {fileID: 0}
   revealKeyButton: {fileID: 465967301}
   replayFirstNoteButton: {fileID: 62793447}
   possiblePointsText: {fileID: 0}
@@ -1158,6 +1159,7 @@ MonoBehaviour:
   SpeechText: {fileID: 0}
   currentMissingNote: 0
   currentlyPlaying: 0
+  questionAttempts: 1
 --- !u!4 &160060491
 Transform:
   m_ObjectHideFlags: 0
@@ -4400,7 +4402,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2106242699}
+      - m_Target: {fileID: 160060490}
         m_MethodName: ToggleChordTypePanel
         m_Mode: 1
         m_Arguments:
