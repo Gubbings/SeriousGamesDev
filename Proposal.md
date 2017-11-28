@@ -47,20 +47,36 @@ The audience described by the above characteristics represents the most likely g
 #
 ## References
 [1] R. Črnčec, S. J. Wilson, and M. Prior, “The cognitive and academic benefits of music to children: Facts and fiction,” Educational Psychology, vol. 26, no. 4, pp. 579–594, 2006.
+
 [2] R. Colwell and L. Davidson, “Musical intelligence and the benefits) f music education,” NASSP Bulletin, vol. 80, no. 583, pp. 55–64, 1996.
+
 [3] K. Petress, “The importance of music education.,” Education, vol. 126, no. 1, 2005.
+
 [4] N. Kraus and B. Chandrasekaran, “Music training for the development of auditory skills,” Nature Reviews Neuroscience, vol. 11, no. 8, pp. 599–605, 2010.
+
 [5] G. of Ontario, “The Ontario Curriculum: Secondary,” The Arts. [Online]. Available: http://www.edu.gov.on.ca/eng/curriculum/secondary/arts.html. [Accessed: 27-Nov-2017].
+
 [6] “Alberta Education,” Government of Alberta. [Online]. Available: https://education.alberta.ca/. [Accessed: 27-Nov-2017].
+
 [7] Ministry of Technology Innovation and Citizens Services, “Ministry of Education,” Province of British Columbia, 26-Oct-2017. [Online]. Available: https://www2.gov.bc.ca/gov/content/governments/organizational-structure/ministries-organizations/ministries/education. [Accessed: 27-Nov-2017].
+
 [8] Government of Manitoba, Education, School Programs Division, “Manitoba Education,” Manitoba. [Online]. Available: http://www.edu.gov.mb.ca/. [Accessed: 27-Nov-2017].
+
 [9] C. G. N. Brunswick, “Education and Early Childhood Development,” Government of New Brunswick, Canada, 10-Nov-2017. [Online]. Available: http://www2.gnb.ca/content/gnb/en/departments/education.html. [Accessed: 27-Nov-2017].
+
 [10] Department of Education and Early Childhood Development, Education and Early Childhood Development. [Online]. Available: http://www.ed.gov.nl.ca/edu/. [Accessed: 27-Nov-2017].
+
 [11] Government of Nova Scotia, “Education and Early Childhood Development,” Education and Early Childhood Development. [Online]. Available: https://www.ednet.ns.ca/. [Accessed: 27-Nov-2017].
+
 [12] “Education,” Education | Government of Nunavut, 05-Jul-2017. [Online]. Available: https://www.gov.nu.ca/education. [Accessed: 27-Nov-2017].
+
 [13] Hill Strategies Research Inc, "A Delicate Balance: Music Education in Canadian Schools," 2010
+
 [14] J. E. Clark, A. K. Lanphear, and C. C. Riddick, “The effects of videogame playing on the response selection processing of elderly adults,” Journal of gerontology, vol. 42, no. 1, pp. 82–85, 1987.
+
 [15] P. Wouters, C. Van Nimwegen, H. Van Oostendorp, and E. D. Van Der Spek, “A meta-analysis of the cognitive and motivational effects of serious games,” 2013.
+
 [16] S. Green and D. Bavelier, “The cognitive neuroscience of video games,” Digital media: Transformations in human communication, pp. 211–223, 2006.
+
 [17] “Gender Analysis of Music Teachers,” MTD Research, 29-Dec-2015. [Online]. Available: http://mtdresearch.com/gender-analysis-of-music-teachers/. [Accessed: 27-Nov-2017].
 
