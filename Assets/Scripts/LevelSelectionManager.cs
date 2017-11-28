@@ -64,4 +64,8 @@ public class LevelSelectionManager : MonoBehaviour {
                 break;
         }
     }
+
+    public void Quit() {
+        Application.Quit();
+    }
 }
