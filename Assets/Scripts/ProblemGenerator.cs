@@ -169,6 +169,8 @@ public class ProblemGenerator : MonoBehaviour {
         }
         
         cp.key = key;
+        cp.pointsToAward = 10;
+        cp.questionAttempts = 0;
         cp.problemSequence = problemNotes;
 
         cp.missingNoteIndexes = new List<int>();

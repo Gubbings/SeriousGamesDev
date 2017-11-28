@@ -55,6 +55,8 @@ public class ConcreteProblem : MonoBehaviour {
     private int score;
     private bool mistake = false;
 
+    private IEnumerator routine;
+
     // Use this for initialization
     void Start() {
 
@@ -88,7 +90,7 @@ public class ConcreteProblem : MonoBehaviour {
 
         currentlyPlaying = true;
 
-        IEnumerator routine = playProblem(problemSequence);
+        routine = playProblem(problemSequence);
         StartCoroutine(routine);
     }
 
@@ -96,6 +98,9 @@ public class ConcreteProblem : MonoBehaviour {
     public void setupProbblemVisuals() {
 
         mistake = false;
+        possiblePointsText.GetComponentInChildren<Text>().text = "Possible Points: " + pointsToAward;
+        score = PlayerPrefs.GetInt("score");
+        scoreText.text = "Score: " + score;
 
         if (missingNoteIndexes.Count != 0) {
             currentMissingNote = missingNoteIndexes[0];
@@ -315,6 +320,7 @@ public class ConcreteProblem : MonoBehaviour {
 
             if (currentMissingNote == missingNoteIndexes[missingNoteIndexes.Count - 1] && !mistake) {
                 score += pointsToAward;
+                PlayerPrefs.SetInt("score", score);
                 scoreText.text = "Score: " + score;
 
                 piano.SetActive(false);
@@ -355,7 +361,9 @@ public class ConcreteProblem : MonoBehaviour {
         setupProbblemVisuals();
     }
 
-    public void congradulate() { 
+    public void congradulate() {
+        currentlyPlaying = false;
+        StopAllCoroutines();
         piano.SetActive(false);
         speechPanel.SetActive(true);
 
@@ -370,6 +378,8 @@ public class ConcreteProblem : MonoBehaviour {
     }
 
     public void showAnswer() {
+        currentlyPlaying = false;
+        StopAllCoroutines();
         missingNoteIndexes.Clear();
         setupProbblemVisuals();
 

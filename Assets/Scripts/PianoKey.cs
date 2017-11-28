@@ -23,11 +23,17 @@ public class PianoKey : MonoBehaviour {
 
     public notes note;
     public int octaveShift = 0;
+
+    private float lastClickTime = 0;
+    public static float lastClickTime2 = 0;
     
 	// Use this for initialization
 	void Start () {
         audioGenerator = GameObject.Find("SoundGenerator").GetComponent<AudioSource>();
-	}
+        lastClickTime = Time.time;
+        lastClickTime2 = Time.time;
+
+    }
 
 	// Update is called once per frame
 	void Update () {
@@ -38,6 +44,12 @@ public class PianoKey : MonoBehaviour {
         if (audioGenerator == null) {
             return;
         }
+
+        if (Time.time - lastClickTime2 < 1) {
+            return;
+        }
+
+        lastClickTime2 = Time.time;
 
         TutorialProblem tp = GameObject.Find("Problem").GetComponent<TutorialProblem>();
         ConcreteProblem cp = GameObject.Find("Problem").GetComponent<ConcreteProblem>();
