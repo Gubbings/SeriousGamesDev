@@ -2,12 +2,11 @@
 # Mr. Noteworthy's School of Classical Melodies
 ---
 # A Serious Game for Interactive Ear Training
-#
 
-#
+
 ### Abstract
 Music education is a field that has experienced a significant lack of funding and standardization. There are clear benefits of learning various aspects of music. These benefits are difficult to obtain through conventional training methods due to differences in curriculum and teachers. To address these issues and advance in this market, a serious game that aims to improve the user’s skills at identifying classical melodies and pitch differential through the use of basic music theory is proposed here. 
-#
+
 
 ## Introduction
 For many people music is a relaxing and entertaining form of modern media. While the entertainment value of consuming musical content is clearly apparent, there are various other cognitive benefits of actually learning and creating music [1, 2, 3, 4]. In Canada quality music education is not widely available through standard government regulated education. There are several independent and private organizations that offer music training but there is no standardization for these third-party educators. Music education is listed in provincial curriculums but music related courses are not required for students. Funding in the arts is also quite variable between provinces and individual schools [5-12]. In 2010 Hill Strategies Research Inc. prepared a report for the Coalition for Music Education in Canada. This report, among other things, noted that there is a lack of qualified music teachers, a lack of funding for music education and issues with training methods for students and teachers [13]. These improvements are most likely to arise through the continued exposure of students to music and related music education, thus stimulating interest and engaging students of music is a valuable endeavour. The production of a quality music related game like the one proposed here fulfills these engagement needs in music training and can easily serve as a gateway to higher education in music and the arts.
@@ -17,20 +16,15 @@ From a non-education standpoint training of auditory skills related to music is 
 Training in this area is difficult to target with conventional methods due to the lack of standard training in the education system. People of various ages can access musical training at very different skill levels. It is quite possible for an adolescent to have equal proficiency in music compared to an adult. This leads to a need for training methods that can be easily accessed and understood by a large range of people.
 
 The serious game proposed here will focus on improving the user's skill at identifying classical melodies and pitch differentiation. These are entry level skills in the field of classical music training. As previously mentioned, in Canada, these skills are not standardized in government regulated music education. These skills are very necessary for more advanced training in music including post-secondary education where many institutions will expect a level of competency related to these skills. Likewise, this game will be accessible to anyone who wants to improve their auditory skills and will not cover any advanced music theory concepts which allows for a larger range of potential users. This game is unique compared to similar products due to the fact that while it teaches simple concepts of classical music it stays true to more advanced concepts of classical harmony which many similar products fail at. Failing to adhere to these rules of music theory can reduce overall performance of users and can devalue any potential benefits that the product might have. This will not be the case with the proposed game since it will follow the necessary rules of classical harmony. 
-#
 
-#
 ## Funding
-#
 Initial funding for this project will be sought after primarily through grants provided by the federal government of Canada as well as the provincial government of Ontario. These funding opportunities include grants from the Northern Ontario Heritage Fund Corporation such as the Northern Innovation Program - Pilot Demonstration & Commercialization Projects grant, and the Northern Innovation Program - Applied Research & Technology Development Projects grants. Similar funding opportunities will be pursued through FedNor's small business loans. The government of Canada also offers the Interactive Digital Media Fund through the Canadian Business network which will also be pursued.
 
 If these initial funding sources are unavailable private investors will be sought potentially from similar innovators in the music industry or private music education businesses.
 
 In game advertisements are also a possibility if the other funding options are unsuccessful. The game can also be deployed on smartphones or on the web which leverages it for advertisement markets. 
 
-#
 ## Target Audience
-#
 ### Age
 The game will be targeting the age group of adolescents to young adults which ranges from as young 10 years of age to 24 years of age. This age group represents the audience most likely to be interested in music training, however, the game will not utilize any age restrictive content so as long as the user can read then they can play the game.  
 
@@ -43,8 +37,7 @@ It is expected that the primary user of the game will be someone actually intere
 ### Reasoning
 The audience described by the above characteristics represents the most likely group of people that will be interested in training via use of this game. It would be possible to address other audiences with future development and marketing but for initial development this target audience is the safest and most likely to respond positively towards the game. This audience also represents the primary group of people that experience the lack of music education through standard government education. Thus they would be most likely to be interested in other forms of music training.
 
-#
-#
+
 ## References
 [1] R. Črnčec, S. J. Wilson, and M. Prior, “The cognitive and academic benefits of music to children: Facts and fiction,” Educational Psychology, vol. 26, no. 4, pp. 579–594, 2006.
 
